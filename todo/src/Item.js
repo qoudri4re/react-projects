@@ -1,5 +1,4 @@
 import React from "react";
-import cross_image from "./images/icon-cross-2.svg";
 import check_image from "./images/icon-check.svg";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
