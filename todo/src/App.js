@@ -14,10 +14,26 @@ function getLocalStorage() {
     return [];
   }
 }
+function getModeLocalStorage() {
+  let mode = localStorage.getItem("mode");
+  if (mode) {
+    return JSON.parse(mode);
+  } else {
+    return "container-light";
+  }
+}
+function toogleImageToDisplay() {
+  let currentMode = getModeLocalStorage();
+  if (currentMode === "container-light") {
+    return moon_image;
+  } else {
+    return sun_image;
+  }
+}
 
 function App() {
-  const [mode, setMode] = useState("container-light");
-  const [toogleImage, setToogleImage] = useState(moon_image);
+  const [mode, setMode] = useState(getModeLocalStorage());
+  const [toogleImage, setToogleImage] = useState(toogleImageToDisplay());
   const [list, setList] = useState(getLocalStorage());
   const [name, setName] = useState("");
   const [isEditing, setIsEditing] = useState(false);
@@ -28,7 +44,9 @@ function App() {
   useEffect(() => {
     localStorage.setItem("list", JSON.stringify(list));
   }, [list]);
-
+  useEffect(() => {
+    localStorage.setItem("mode", JSON.stringify(mode));
+  }, [mode]);
   const TodoItems = list.map((item) => {
     if (currentView === "all") {
       return (
